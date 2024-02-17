@@ -6,8 +6,6 @@ metadata:
   containers:
     - name: nginx
       image: nginx
-      ports:
-        - containerPort: 80
       imagePullPolicy: Always  
       resources:
         requests:
