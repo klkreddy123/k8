@@ -3,16 +3,16 @@ kind: Pod
 metadata:
   name: resources
 spec:
-containers:
-  - name: nginx
-    image: nginx
-    ports:
-      -containerPort: 80
-    imagePullPolicy: Always  
-    resources:
-      requests:
-        cpu: "64m"
-        memory: "128Mi"
-      limits:
-        cpu: "128m"
-        memory: "256Mi"
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        -containerPort: 80
+      imagePullPolicy: Always  
+      resources:
+        requests:
+          cpu: "64m"
+          memory: "128Mi"
+        limits:
+          cpu: "128m"
+          memory: "256Mi"
