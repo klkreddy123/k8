@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: annotations
+  annotations:
+    com.devops.course: devops
+    com.devops.duration: 100hrs
+    com.devops.trainer: siva
+spec:
+  containers:
+    - name: label
+      image: nginx
+      ports:
+        - containerPort: 80
