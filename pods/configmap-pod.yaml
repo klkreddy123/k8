@@ -7,17 +7,17 @@ spec:
     - name: nginx
       image: nginx
       env:
-        - name: "What is the course name"
+        - name: What_is_the_course_name
           valueFrom:
             configMapKeyRef:
               name: configmap
               key: COURSE
-        - name: "Duration of the course"
+        - name: Duration_of_the_course
           valueFrom:
             configMapKeyRef:
               name: configmap
               key: DURATION
-        - name: "Who taught the course"
+        - name: Who_taught_the_course
           valueFrom:
             configMapKeyRef:
               name: configmap
