@@ -2,28 +2,38 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: catalogue
-  labels:
-    app: 
-    tier: app
   namespace: roboshop
+  labels: # these labels belong to deployment
+    app: catalogue
+    tier: app
+    project: roboshop
 spec:
-  # modify replicas according to your case
   replicas: 1
   selector:
-    matchLabels:
-      app: app
+    matchLabels: # these labels should match with pod
+      app: catalogue
+      tier: app
       project: roboshop
-      component: catalogue
-  template:
+  template: # this is the pod definition
     metadata:
       labels:
-        app: app
+        app: catalogue
+        tier: app
         project: roboshop
-        component: catalogue
     spec:
       containers:
       - name: catalogue
-        image: klkreddy123/catalogue:1.0.0
+        image: joindevops/catalogue:1.0.0
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "68Mi"
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
+        envFrom:
+        - configMapRef:
+            name: catalogue
 ---
 apiVersion: v1
 kind: Service
@@ -32,14 +42,14 @@ metadata:
   namespace: roboshop
 spec:
   selector:
-        app: db
-        project: roboshop
-        component: catalogue
+    app: catalogue
+    tier: app
+    project: roboshop
   ports:
-  - name: catalogue-port
+  - name: mongodb-port
     protocol: TCP
-    port: 8080
-    targetPort: 8080
+    port: 8080 # this port belongs to service
+    targetPort: 8080 # this port belongs to container
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -47,5 +57,5 @@ metadata:
   name: catalogue
   namespace: roboshop
 data:
-  MONGO: "true"
-  MONGO_URL: "mongodb:mongodb//:27017/catalogue"
+  MONGO: "true" # keep true in double quotes
+  MONGO_URL: "mongodb://mongodb:27017/catalogue"
