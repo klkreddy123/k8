@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: web
   labels:
-    app: 
+    app: web
     tier: web
   namespace: roboshop
 spec:
