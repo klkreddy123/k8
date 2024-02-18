@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  labels:
+    app: db
+    tier: db
+  namespace: roboshop
+spec:
+  # modify replicas according to your case
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+      project: roboshop
+      component: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: db
+        project: roboshop
+        component: rabbitmq
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  namespace: roboshop
+spec:
+  selector:
+        app: db
+        project: roboshop
+        component: rabbitmq
+  ports:
+  - name: rabbitmq-port
+    protocol: TCP
+    port: 5672
+    targetPort: 5672
