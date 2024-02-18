@@ -31,12 +31,11 @@ spec:
       containers:
       - name: web
         image: klkreddy123/web:1.0.0
-        volumeMounts:
-        - mountPath: /etc/nginx # mount nginx-conf volumn to /etc/nginx
-          readOnly: true
-          name: nginx-conf
-        - mountPath: /var/log/nginx
-          name: log
+        volumeMounts:  
+          - name: nginx-conf # name of the volume you created above
+            mountPath: /etc/nginx/nginx.conf
+            subPath: nginx.conf
+            readOnly: true
 ---
 apiVersion: v1
 kind: Service
