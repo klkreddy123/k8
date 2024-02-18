@@ -147,6 +147,3 @@ data:
     }
 
     }
-        location /api/payment/ {
-          proxy_pass http://payment:8080/;
-        }
