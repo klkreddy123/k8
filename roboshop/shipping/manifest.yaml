@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipping
+  labels:
+    app: app
+    tier: app
+  namespace: roboshop
+spec:
+  # modify replicas according to your case
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+      project: roboshop
+      component: shipping
+  template:
+    metadata:
+      labels:
+        app: app
+        project: roboshop
+        component: shipping
+    spec:
+      containers:
+      - name: shipping
+        image: klkreddy123/shipping:1.0.0
+        envFrom:
+        - configMapRef:
+            name: shipping
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shipping
+  namespace: roboshop
+spec:
+  selector:
+        app: app
+        project: roboshop
+        component: shipping
+  ports:
+  - name: shipping-port
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shipping
+  namespace: roboshop
+data:
+  CART_ENDPOINT: "cart:8080" # keep true in double quotes
+  DB_HOST: mysql
