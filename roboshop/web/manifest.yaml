@@ -57,7 +57,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: nginx-config
+  name: nginx
   namespace: roboshop
 data:
   nginx.conf: |
@@ -138,13 +138,7 @@ data:
         error_page   500 502 503 504  /50x.html;
         location = /50x.html {
             root   /usr/share/nginx/html;
-        }
-
-        location /api/catalogue/ {
-          proxy_pass http://catalogue:8080/;
-        }
-
-        
+        }      
         location /nginx_status {
             stub_status on;
             access_log off;
