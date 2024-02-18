@@ -4,7 +4,8 @@ metadata:
   name: web
   labels:
     app: web
-    tier: web
+    project: roboshop
+    component: web
   namespace: roboshop
 spec:
   # modify replicas according to your case
